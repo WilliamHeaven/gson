@@ -19,6 +19,7 @@ jobs:
     - name: Install depend with ubuntu
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
+        JAVA_HOME=$JAVA_HOME_11_X64
         mvn -f gson install -DskipTests=true
           
     - name: Build with ubuntu
@@ -37,14 +38,15 @@ jobs:
          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
          restore-keys: |
            ${{ runner.os }}-maven-
+       env:
+         JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64 
      - name: Install depend with windows
        if: steps.cache.outputs.cache-hit != 'true'
        run: |
-        mvn -f gson install -DskipTests=true
+         $env:PATH="$env:JAVA_HOME/bin;$env:PATH"
+         mvn -f gson install -DskipTests=true
         
      - name: Build with windows
-       env:
-         JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64 
        run: |
            $env:PATH="$env:JAVA_HOME/bin;$env:PATH"
            mvn -f gson test   
@@ -63,6 +65,7 @@ jobs:
      - name: Install depend with macos
        if: steps.cache.outputs.cache-hit != 'true'
        run: |
+         JAVA_HOME=$JAVA_HOME_11_X64
          mvn -f gson install -DskipTests=true
          
      - name: Build with macos  
