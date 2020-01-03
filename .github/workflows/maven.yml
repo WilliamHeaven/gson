@@ -9,6 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: actions/cache@v1
+      id: cache
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -16,6 +17,7 @@ jobs:
           ${{ runner.os }}-maven-
           
     - name: Build with ubuntu
+      if: steps.cache.outputs.cache-hit != 'true'
       run: |
            JAVA_HOME=$JAVA_HOME_11_X64
            mvn -f gson install -DskipTests=true
