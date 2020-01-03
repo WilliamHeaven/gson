@@ -25,7 +25,7 @@ jobs:
      - name: Build with windows  
        run: |
            set JAVA_HOME=$JAVA_HOME_11_X64
-           set path=%JAVA_HOME%;%path%
+           set PATH=%JAVA_HOME%;%PATH%
            echo %path%
            mvn -f gson install -DskipTests=true
            mvn -f gson test   
