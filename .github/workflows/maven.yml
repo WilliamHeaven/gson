@@ -22,10 +22,10 @@ jobs:
    steps:
      - uses: actions/checkout@master
        
-     - name: Build with windows  
+     - name: Build with windows 
        run: |
            set JAVA_HOME=$JAVA_HOME_11_X64
-           set PATH=%JAVA_HOME%;%PATH%
+           $env:PATH="$env:JAVA_HOME/bin;$env:PATH"
            echo %path%
            mvn -f gson install -DskipTests=true
            mvn -f gson test   
