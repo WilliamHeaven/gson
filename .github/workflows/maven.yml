@@ -8,7 +8,13 @@ jobs:
     
     steps:
     - uses: actions/checkout@master
-
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+          
     - name: Build with ubuntu
       run: |
            JAVA_HOME=$JAVA_HOME_11_X64
@@ -20,7 +26,12 @@ jobs:
    
    steps:
      - uses: actions/checkout@master
-       
+     - uses: actions/cache@v1
+       with:
+         path: ~/.m2/repository
+         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+         restore-keys: |
+           ${{ runner.os }}-maven-
      - name: Build with windows
        env:
          JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64 
@@ -34,7 +45,12 @@ jobs:
     
     steps:
      - uses: actions/checkout@master
-       
+     - uses: actions/cache@v1
+       with:
+         path: ~/.m2/repository
+         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+         restore-keys: |
+           ${{ runner.os }}-maven-   
      - name: Build with macos  
        run: |
            JAVA_HOME=$JAVA_HOME_11_X64
