@@ -26,7 +26,8 @@ jobs:
        run: |
            set JAVA_HOME=$JAVA_HOME_11_X64
            $env:PATH="$env:JAVA_HOME/bin;$env:PATH"
-           echo %path%
+           java -version
+           echo %PATH%
            mvn -f gson install -DskipTests=true
            mvn -f gson test   
                 
