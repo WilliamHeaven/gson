@@ -25,7 +25,8 @@ jobs:
      - name: Build with windows  
        run: |
            set JAVA_HOME=$JAVA_HOME_11_X64
-           echo $PATH
+           set path=%JAVA_HOME%;%path%
+           echo %path%
            mvn -f gson install -DskipTests=true
            mvn -f gson test   
                 
@@ -38,6 +39,6 @@ jobs:
      - name: Build with macos  
        run: |
            JAVA_HOME=$JAVA_HOME_11_X64
-           env
+           java -version
            mvn -f gson install -DskipTests=true
            mvn -f gson test
