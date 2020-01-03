@@ -23,8 +23,9 @@ jobs:
      - uses: actions/checkout@master
        
      - name: Build with windows 
+       env:
+         JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64 
        run: |
-           set JAVA_HOME=$JAVA_HOME_11_X64
            $env:PATH="$env:JAVA_HOME/bin;$env:PATH"
            java -version
            echo $env:PATH
