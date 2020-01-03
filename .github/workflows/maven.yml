@@ -1,18 +1,45 @@
-name: Java CI
+name: CI  on macos linux wi
 
 on: [push]
 
 jobs:
-  build:
 
+ 
+  linux:
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@master
 
-    - name: Build with Maven
+    - name: Build with ubuntu
       run: |
            JAVA_HOME=$JAVA_HOME_11_X64
            env
            mvn -f gson install -DskipTests=true
+           mvn -f gson test          
+  windows:
+   runs-on: windows
+   
+   steps:
+     - uses: actions/checkout@master
+       
+     - name: Build with windows  
+       run: |
+           JAVA_HOME=$JAVA_HOME_11_X64
+           env
+           mvn -f gson install -DskipTests=true
+           mvn -f gson test   
+       
+  macos:
+    runs-on: macos-latest
+    
+    steps:
+     - uses: actions/checkout@master
+       
+     - name: Build with macos  
+       run: |
+           JAVA_HOME=$JAVA_HOME_11_X64
+           env
+           mvn -f gson install -DskipTests=true
            mvn -f gson test
+   
