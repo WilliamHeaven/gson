@@ -38,6 +38,5 @@ jobs:
      - name: Build with macos  
        run: |
            JAVA_HOME=$JAVA_HOME_11_X64
-           java -version
            mvn -f gson install -DskipTests=true
            mvn -f gson test
