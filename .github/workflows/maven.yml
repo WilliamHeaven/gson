@@ -3,8 +3,12 @@ name: CI  on macos linux windows
 on: [push]
 
 jobs:
-  linux:
-    runs-on: ubuntu-latest
+  ${{ matrix.os }}:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest,macOS-latest]
     
     steps:
     - uses: actions/checkout@master
@@ -16,17 +20,17 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
              
-    - name: Install depend with ubuntu
+    - name: Install depend with ${{ matrix.os }}
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
         JAVA_HOME=$JAVA_HOME_11_X64
         mvn -f gson install -DskipTests=true
           
-    - name: Build with ubuntu
+    - name: Build with ${{ matrix.os }}
       run: |
            JAVA_HOME=$JAVA_HOME_11_X64      
            mvn -f gson test   
-                  
+		                     
   windows:
    runs-on: windows-latest
    
@@ -54,27 +58,3 @@ jobs:
        run: |
            $env:PATH="$env:JAVA_HOME/bin;$env:PATH"
            mvn -f gson test   
-                
-  macos:
-    runs-on: macos-latest
-    
-    steps:
-     - uses: actions/checkout@master
-     - uses: actions/cache@v1
-       id: cache
-       with:
-         path: ~/.m2/repository
-         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-         restore-keys: |
-           ${{ runner.os }}-maven-   
-           
-     - name: Install depend with macos
-       if: steps.cache.outputs.cache-hit != 'true'
-       run: |
-         JAVA_HOME=$JAVA_HOME_11_X64
-         mvn -f gson install -DskipTests=true
-         
-     - name: Build with macos  
-       run: |
-           JAVA_HOME=$JAVA_HOME_11_X64
-           mvn -f gson test
