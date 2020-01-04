@@ -3,7 +3,7 @@ name: CI  on macos linux windows
 on: [push]
 
 jobs:
-  linux and maxOS:
+  linux_maxOS:
     name: Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
