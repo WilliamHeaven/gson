@@ -18,17 +18,17 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-        java-version: 11.0.x
              
     - name: Install depend with ${{ matrix.os }}
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        env
+        JAVA_HOME=$JAVA_HOME_11_X64
         mvn -f gson install -DskipTests=true
           
     - name: Build with ${{ matrix.os }}
-      run: |   
-           mvn -f gson test   
+      run: |
+        JAVA_HOME=$JAVA_HOME_11_X64   
+        mvn -f gson test   
            		                     
   Test_on_windows-latest:
    runs-on: windows-latest
@@ -52,4 +52,4 @@ jobs:
          
      - name: Build with windows
        run: |
-           mvn -f gson test   
+         mvn -f gson test   
