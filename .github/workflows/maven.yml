@@ -13,7 +13,8 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: actions/cache@v1
-      id: cache
+      env:
+         JAVA_HOME: $JAVA_HOME_11_X64
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -23,12 +24,10 @@ jobs:
     - name: Install depend with ${{ matrix.os }}
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        JAVA_HOME=$JAVA_HOME_11_X64
         mvn -f gson install -DskipTests=true
           
     - name: Build with ${{ matrix.os }}
-      run: |
-           JAVA_HOME=$JAVA_HOME_11_X64      
+      run: |   
            mvn -f gson test   
            		                     
   Test_on_windows-latest:
