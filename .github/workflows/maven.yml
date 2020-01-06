@@ -37,8 +37,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: actions/cache@v1
-        env:
-          JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64
         id: cache
         with:
           path: ~/.m2/repository
@@ -48,9 +46,13 @@ jobs:
             
       - name: Install depend with windows
         if: steps.cache.outputs.cache-hit != 'true' 
+        env:
+          JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64
         run: |
           mvn -f gson install -DskipTests=true  
           
       - name: Test with windows-latest
+        env:
+          JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64
         run: |
-          mvn -f gson test   
+          mvn -f gson test
