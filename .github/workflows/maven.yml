@@ -7,7 +7,7 @@ jobs:
     name: Test_on_${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     env:
-      JAVA_HOME: $JAVA_HOME_11_X64
+      JAVA_HOME: ${{JAVA_HOME_11_X64}}
     strategy:
       matrix:
         os: [ubuntu-latest,macOS-latest]
