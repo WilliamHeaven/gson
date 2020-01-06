@@ -32,25 +32,25 @@ jobs:
         mvn -f gson test   
            		                     
   Test_on_windows-latest:
-   runs-on: windows-latest
-   
-   steps:
-     - uses: actions/checkout@master
-     - uses: actions/cache@v1
-       env:
-         JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64
-       id: cache
-       with:
-         path: ~/.m2/repository
-         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-         restore-keys: |
-           ${{ runner.os }}-maven-
-           
-     - name: Install depend with windows
-       if: steps.cache.outputs.cache-hit != 'true' 
-       run: |
-         mvn -f gson install -DskipTests=true  
-         
-     - name: Test with windows-latest
-       run: |
-         mvn -f gson test   
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/cache@v1
+        env:
+          JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64
+        id: cache
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+            
+      - name: Install depend with windows
+        #if: steps.cache.outputs.cache-hit != 'true' 
+        run: |
+          mvn -f gson install -DskipTests=true  
+          
+      - name: Test with windows-latest
+        run: |
+          mvn -f gson test   
