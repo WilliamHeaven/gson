@@ -47,7 +47,7 @@ jobs:
             ${{ runner.os }}-maven-
             
       - name: Install depend with windows
-        #if: steps.cache.outputs.cache-hit != 'true' 
+        if: steps.cache.outputs.cache-hit != 'true' 
         run: |
           mvn -f gson install -DskipTests=true  
           
