@@ -13,13 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: actions/cache@v1
-      env:
-         JAVA_HOME: $JAVA_HOME_11_X64
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
+        java-version: 11.0.x
              
     - name: Install depend with ${{ matrix.os }}
       if: steps.cache.outputs.cache-hit != 'true'
