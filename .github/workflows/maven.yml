@@ -13,6 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: actions/cache@v1
+      id: cache
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -25,7 +26,7 @@ jobs:
         JAVA_HOME=$JAVA_HOME_11_X64
         mvn -f gson install -DskipTests=true
           
-    - name: Build with ${{ matrix.os }}
+    - name: Test with ${{ matrix.os }}
       run: |
         JAVA_HOME=$JAVA_HOME_11_X64   
         mvn -f gson test   
@@ -50,6 +51,6 @@ jobs:
        run: |
          mvn -f gson install -DskipTests=true  
          
-     - name: Build with windows
+     - name: Test with windows-latest
        run: |
          mvn -f gson test   
