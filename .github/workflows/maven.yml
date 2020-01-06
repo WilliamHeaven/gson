@@ -24,6 +24,7 @@ jobs:
     - name: Install depend with ${{ matrix.os }}
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
+        env
         mvn -f gson install -DskipTests=true
           
     - name: Build with ${{ matrix.os }}
@@ -46,10 +47,10 @@ jobs:
            ${{ runner.os }}-maven-
            
      - name: Install depend with windows
-       if: steps.cache.outputs.cache-hit != 'true'
-        
+       if: steps.cache.outputs.cache-hit != 'true' 
        run: |
          mvn -f gson install -DskipTests=true  
+         
      - name: Build with windows
        run: |
            mvn -f gson test   
