@@ -49,9 +49,9 @@ jobs:
       - name: Install depend with windows
         if: steps.cache.outputs.cache-hit != 'true' 
         run: |
-          echo %JAVA_HOME_11_X64%
           mvn -f gson install -DskipTests=true  
           
       - name: Test with windows-latest
         run: |
+          echo %JAVA_HOME_11_X64%
           mvn -f gson test
