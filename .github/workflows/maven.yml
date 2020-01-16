@@ -55,4 +55,6 @@ jobs:
         run: |
           echo %JAVA_HOME_11_X64%
           echo %PATH%
+          echo %path%
+          echo %JAVA_HOME_11.0.4% 
           mvn -f gson test
