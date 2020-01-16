@@ -49,6 +49,7 @@ jobs:
       - name: Install depend with windows
         if: steps.cache.outputs.cache-hit != 'true' 
         run: |
+          env
           mvn -f gson install -DskipTests=true  
           
       - name: Test with windows-latest
