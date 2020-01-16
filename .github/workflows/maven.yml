@@ -8,8 +8,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest,macOS-latest]
-    
+        os: [ubuntu-latest,macOS-latest,windows-latest]
+        java : [11.0.x]
+
     steps:
     - uses: actions/checkout@master
     - uses: actions/cache@v1
@@ -19,42 +20,18 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
+          
+    - uses: actions/checkout@master
+    - name: Setup java
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}         
              
     - name: Install depend with ${{ matrix.os }}
       if: steps.cache.outputs.cache-hit != 'true'
-      run: |
-        JAVA_HOME=$JAVA_HOME_11_X64    
+      run: |   
         mvn -f gson install -DskipTests=true
           
     - name: Test with ${{ matrix.os }}
       run: |
-        JAVA_HOME=$JAVA_HOME_11_X64
         mvn -f gson test   
-           		                     
-  Test_on_windows-latest:
-    runs-on: windows-latest
-    env:
-      JAVA_HOME: C:\Program Files\Java\zulu-11-azure-jdk_11.33.15-11.0.4-win_x64
-    
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/cache@v1
-        id: cache
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-            
-      - name: Install depend with windows
-        if: steps.cache.outputs.cache-hit != 'true' 
-        run: |
-          mvn -f gson install -DskipTests=true  
-          
-      - name: Test with windows-latest
-        run: |
-          echo %JAVA_HOME_11_X64%
-          echo %PATH%
-          echo %path%
-          echo %JAVA_HOME_11.0.4% 
-          mvn -f gson test
