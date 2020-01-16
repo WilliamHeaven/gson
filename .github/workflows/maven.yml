@@ -54,4 +54,5 @@ jobs:
       - name: Test with windows-latest
         run: |
           echo %JAVA_HOME_11_X64%
+          echo %PATH%
           mvn -f gson test
